@@ -1,7 +1,7 @@
 {
-  "name": "olga",
+  "name": "template",
   "version": "0.0.0",
-  "description": "ablazeblaze website ",
+  "description": "tamplate for websites",
   "main": "server.js",
   "dependencies": {
     "connect": "~3.3.4",
