@@ -1,0 +1,17 @@
+
+/* outline for formatting*/
+
+* {
+
+  outline: red 1px solid;
+}
+
+/* fix box-sizing */
+
+html {
+    box-sizing: border-box;
+}
+
+*, *:before, *:after {
+    box-sizing: inherit;
+}
