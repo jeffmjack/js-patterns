@@ -1,27 +1,19 @@
 $(document).ready(function( ) {
-  $('.hidden').hide();
-  $('.draggable').draggable();
-  $('#image-1-icon').click(function()
-  {
-    $('#image-1-icon').css("background-image", "url('image-1-icon-selected.png' )");  
-  });
-// open larger img divs when icon is double clicked
-  $('#image-1-icon').dblclick(function(){
-    $('#image-1').show(); 
-  });
-  $('#image-2-icon').dblclick(function(){
-    $('#image-2').show(); 
-  });
+  var cat1 = "Jimmy";
+  var cat2 = "Alfonso";
+  var cat1number = 0;
+  var cat2number = 0;
 
-// hide larger img divs when they are clicked
-  $('#image-1').click(function(){
-    $('#image-1').hide(); 
-  });
-  $('#image-2').click(function(){
-    $('#image-2').hide(); 
-  });
-  //$('#container').click(function () {
-    //$('.hidden').hide();
-  //});
+  $('#cat1-name').html(cat1);
+  $('#cat2-name').html(cat2);
+
+  $('#cat1-pic').click(function() {
+    cat1number++;
+    $('#cat1-clicks').html(cat1number);
+    });
+
+  $('#cat2-pic').click(function() {
+    cat2number++;
+    $('#cat2-clicks').html(cat2number);
+    });
 });
-
