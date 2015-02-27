@@ -1,19 +1,34 @@
-* {
-/*   outline: 1px red solid;*/
+/* * {
+   outline: 1px red solid;
   }
-
-#container {
-  text-align: center;
+*/
+aside {
+  float: left;
+  width: 20%;
+  height: 100%;
+  background-color: grey;
 }
 
-.cat-container {
-  display: inline-block; 
+article {
+  float: right;
+  width: 80%;
+  background-color: green;
 }
+
+.nameClass {}
+
+.picClass {
+  height: 300px; 
+  width: 300px;
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+
+}
+.clicksClass {}
 img {
-  margin: 20px ;
-}
-
-.cat-container p {
-  text-align: center;
+  display: block;
   margin: auto;
+  width: 100%;
+  height: 100%;
+  
 }
