@@ -6,6 +6,7 @@ $(function() {
     names: ['jimmy', 'alfonso', 'bart', 'cantrell', 'luis'],
     pics:  ['1.jpg', '2.jpg', '3.jpg', '4.jpg', '5.jpg'],
     cats: [],
+    currentCat: {},
 
     init: function (names) {
         model.names.forEach(function (item, index, array) {
@@ -27,54 +28,36 @@ $(function() {
     list: {
       init: function  (){
         view.list.render();
-        $('li').click(function (e){
-          var catID = $(this).attr('id');
-          var clickedCat = octopus.findCatByID(catID);
-          view.catPane.render(clickedCat);
-        });
       },
 
       render: function (){
-        var htmlStr = '';
-        octopus.getCats().forEach(function (e, ind, arr){
-          htmlStr = '<li id=\'' +
-            e.name +
-            '\'>' +
-            e.name +
-            '</li>';
-          $('ul').append(htmlStr);
-      });
+        octopus.getCats().forEach(function (cat, ind, arr){
+          var $item = $('<li>');
+          $item.html(cat.name);
+          $item.click(function(){
+              view.catPane.render(cat);
+              octopus.setCurrentCat(cat);
+          });
+          $('ul').append($item);
+        });
+      },
     },
 
-    },
     catPane: {
       init: function () {
         view.catPane.render(octopus.getDefaultCat());
-
-      },
-      render: function (cat) {
-        var myBlock = '';
-        myBlock += '<p> This is ' +
-          cat.name +
-          '!! ' +
-          '<div class=\'picClass\' id= \'' +
-          cat.name +
-          '\'> </div>' + 
-          'total clicks: ' +
-          cat.clicks +
-          '</p>';
-        $('article').html('');
-        $('article').append(myBlock);
-        $('.picClass').css('background-image', 'url(images/'+cat.pic+')');
-        $('.picClass').click(function () {
-          var catID= $(this).attr('id');
-          var cat = octopus.findCatByID(catID);
-          cat.clicks += 1;
+        $('#cat-pic').click( function() {
+          var cat = octopus.getCurrentCat();
+          octopus.incrementCatClicks(cat);
           view.catPane.render(cat);
         });
-
-
-      }
+      },
+      render: function (cat) {
+        octopus.clearArticle();
+        $('#cat-name').html(cat.name);
+        $('#cat-pic').css('background-image', 'url(images/'+cat.pic+')');
+        $('#cat-clicks').html(cat.clicks);
+      },
     },
   };
 
@@ -87,13 +70,28 @@ $(function() {
       return model.cats;
     },
     getDefaultCat: function () {
-      return model.cats[0];
+      var cat = model.cats[0];
+      octopus.setCurrentCat(cat);
+      return cat;
     },
     findCatByID: function (catID){
       var winner = $.grep(model.cats, function (cat){
         return cat.name === catID; 
       });
       return winner[0];
+    },
+    clearArticle: function () {
+        $('#cat-name').html('');
+        $('#cat-clicks').html('');
+    },
+    incrementCatClicks: function (cat) {
+        cat.clicks += 1; 
+    },
+    setCurrentCat: function (cat) {
+      model.currentCat = cat;
+    },
+    getCurrentCat: function (){
+      return model.currentCat;
     },
   };
 octopus.init();
