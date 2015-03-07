@@ -12,13 +12,36 @@
   </head>
 
   <body>
-    <aside id='list'>
-      <ul></ul>
-    </aside>
-    <article>
-      <p >This is <span id='cat-name'></span> !!</p>
-      <div id='cat-pic'></div>
-      <p>Total clicks: <span id='cat-clicks'></span>  </p>
-    </article>
+    <nav> <h1> Welcome to Cat Clicker Premium Pro! </h1> </nav>
+    <div id='container'>
+      <aside id='list'>
+        <ul></ul>
+      </aside>
+      <article>
+        <div id='cat-pic' class='pane'>
+          <br>
+          <p class='cat-name'>This is <span id='cat-name'></span> !!</p>
+          <p class='cat-clicks'>Total clicks: <span id='cat-clicks'></span>  </p>
+        </div>
+        <div id='admin-panel' class='pane'>
+          <div id='edit-button'>
+            <button id='admin-button'>edit</button>
+          </div>
+          <div id='edit-panel'>
+            <form>
+              Cat name: <input name='name' type='text'/>
+              <hr>
+              Cat pic URL: <input name='pic' type='text'/>
+              <hr>
+              number of clicks: <input name='clicks' type='number'/>
+              <hr>
+              <input type="submit"/>
+            </form>
+          </div>
+        </div>
+        <div class='clearfix'></div>
+      </article>
+    </div>
+      
   </body>
 </html>

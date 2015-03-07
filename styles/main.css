@@ -1,26 +1,78 @@
-/* * {
-   outline: 1px red solid;
+/*  * {
+  outline: 1px red solid;
   }
 */
+
+nav {
+  text-align: center;
+}
+
+#container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
 aside {
   float: left;
   width: 20%;
   height: 100%;
-  background-color: grey;
+  position: relative;
+  display: inline-block;
 }
 
 article {
-  float: right;
-  width: 80%;
-  background-color: green;
+  float: left;
+  height: 100%;
+  display: inline-block;
 }
 
-.nameClass {}
-
-#cat-pic {
+div.pane {
   height: 300px; 
   width: 300px;
+  margin: 0 10px 0 10px;
+  display: inline-block;
+  position: relative;
+}
+
+div.clearfix {
+  display: block;
+  clear: both;
+  }
+
+#cat-pic {
   background-size: 100% auto;
   background-repeat: no-repeat;
+  text-align: center;
+}
+.cat-clicks {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  background: white;
 
+}
+
+.cat-name {
+  margin: 0;
+  background: white;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+#admin-button {
+}
+
+button {
+  background: #DFB3F9;
+  margin: auto;
+}
+
+#edit-panel form {
+  margin-top: 20px;
+}
+
+#edit-panel input {
+  float: right;
 }

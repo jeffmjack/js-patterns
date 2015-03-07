@@ -9,14 +9,15 @@ $(function() {
     currentCat: {},
 
     init: function (names) {
-        model.names.forEach(function (item, index, array) {
-          var cat = {
-            name: item,
-            pic:  model.pics[index],
-            clicks: 0
-          };
-          model.cats.push(cat);
+      model.names.forEach(function (item, index, array) {
+        var cat = {
+          name: item,
+          pic:  model.pics[index],
+          clicks: 0
+        };
+        model.cats.push(cat);
         });
+      model.currentCat = model.cats[0]; 
     },
   };
 
@@ -24,6 +25,12 @@ $(function() {
     init: function (){
       view.list.init();
       view.catPane.init();
+      view.adminPane.init();
+    },
+    reRender: function() {
+      view.list.render();
+      view.catPane.render();
+      view.adminPane.render();
     },
     list: {
       init: function  (){
@@ -31,12 +38,13 @@ $(function() {
       },
 
       render: function (){
+        octopus.clearList();
         octopus.getCats().forEach(function (cat, ind, arr){
           var $item = $('<li>');
           $item.html(cat.name);
           $item.click(function(){
-              view.catPane.render(cat);
               octopus.setCurrentCat(cat);
+              view.reRender();
           });
           $('ul').append($item);
         });
@@ -45,7 +53,7 @@ $(function() {
 
     catPane: {
       init: function () {
-        view.catPane.render(octopus.getDefaultCat());
+        view.catPane.render(octopus.getCurrentCat());
         $('#cat-pic').click( function() {
           var cat = octopus.getCurrentCat();
           octopus.incrementCatClicks(cat);
@@ -53,12 +61,42 @@ $(function() {
         });
       },
       render: function (cat) {
+        if (! cat) {var cat = octopus.getCurrentCat();}
         octopus.clearArticle();
         $('#cat-name').html(cat.name);
         $('#cat-pic').css('background-image', 'url(images/'+cat.pic+')');
         $('#cat-clicks').html(cat.clicks);
       },
     },
+    adminPane: {
+      init: function () {
+        $('#edit-panel').hide();
+        $('#admin-button').click(function () {
+          $('#edit-panel').show();
+          view.adminPane.render();
+        });
+
+        $('form').submit(function() {
+          var $inputs = $('form :input');
+          var values = {};
+          $inputs.each(function () {
+              values[this.name]= $(this).val();
+          });
+          octopus.saveData(values);
+          $('#edit-panel').hide();
+
+          view.reRender();
+          return false;
+        });
+        view.adminPane.render(octopus.getCurrentCat());
+      },
+      render: function (cat) {
+        if (! cat) {var cat = octopus.getCurrentCat();}
+        $('input[name=\'name\'').val(cat.name);
+        $('input[name=\'pic\'').val(cat.pic);
+        $('input[name=\'clicks\'').val(cat.clicks);
+      },
+    }
   };
 
   var octopus = {
@@ -84,6 +122,9 @@ $(function() {
         $('#cat-name').html('');
         $('#cat-clicks').html('');
     },
+    clearList: function () {
+        $('ul').html('');
+    },
     incrementCatClicks: function (cat) {
         cat.clicks += 1; 
     },
@@ -93,6 +134,13 @@ $(function() {
     getCurrentCat: function (){
       return model.currentCat;
     },
+    saveData: function (obj) {
+      var cat = this.getCurrentCat();
+      cat.name = obj.name;
+      cat.pic = obj.pic;
+      cat.clicks=  +obj.clicks;
+    },
+
   };
 octopus.init();
 
